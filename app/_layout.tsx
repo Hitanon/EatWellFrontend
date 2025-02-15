@@ -1,39 +1,44 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { useFonts } from "expo-font";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useColorScheme } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { AuthProvider, useAuth } from "../context/AuthContext";
+import "../global.css";
+import LoadingScreen from "../components/LoadingScreen";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const RootLayout = () => {
+  return (
+    <AuthProvider>
+      <MainNavigation />
+    </AuthProvider>
+  );
+};
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
+const MainNavigation = () => {
+  const { isAuthenticated } = useAuth();
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+
+  const [fontsLoaded] = useFonts({
+    MullerBold: require("../assets/fonts/MullerBold.ttf"),
+    MullerExtraBold: require("../assets/fonts/MullerExtraBold.ttf"),
+    MullerMedium: require("../assets/fonts/MullerMedium.ttf"),
+    MullerRegular: require("../assets/fonts/MullerRegular.ttf"),
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
+  if (!fontsLoaded || isAuthenticated === null) {
+    return <LoadingScreen />;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+    <GestureHandlerRootView className="flex-1 bg-gray-light">
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(tabs)" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </GestureHandlerRootView>
   );
-}
+};
+
+export default RootLayout;
