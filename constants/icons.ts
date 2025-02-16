@@ -1,7 +1,28 @@
 import { ImageSourcePropType } from "react-native";
 
 const icons: { [key: string]: ImageSourcePropType } = {
+  // Logo
   smallLogo: require("../assets/icons/small-logo.png"),
+  // auth
+  dropdownIcon: require("../assets/icons/arrow-down.png"),
+  calendar: require("../assets/icons/calendar.png"),
+  home: require("../assets/icons/home.png"),
+  homeActive: require("../assets/icons/home-active.png"),
+  // navigation
+  products: require("../assets/icons/products.png"),
+  productsActive: require("../assets/icons/products-active.png"),
+  tasks: require("../assets/icons/tasks.png"),
+  tasksActive: require("../assets/icons/tasks-active.png"),
+  statistics: require("../assets/icons/statistics.png"),
+  statisticsActive: require("../assets/icons/statistics-active.png"),
+  records: require("../assets/icons/records.png"),
+  recordsActive: require("../assets/icons/records-active.png"),
+  profile: require("../assets/icons/profile.png"),
+  profileActive: require("../assets/icons/profile-active.png"),
+  // balance
+  ticket: require("../assets/icons/ticket.png"),
+  appleGolden: require("../assets/icons/apple-golden.png"),
+  heart: require("../assets/icons/heart.png"),
 };
 
 export default icons;

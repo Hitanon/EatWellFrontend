@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 import clsx from "clsx";
 import { InputType } from "../constants/types"; // Импортируем enum
+import { formatPhoneNumber, cleanDecimalInput, finalizeDecimal } from "../utils/inputFormatters";
 
 interface MainInputProps extends TextInputProps {
   label?: string;
@@ -9,32 +10,53 @@ interface MainInputProps extends TextInputProps {
   containerStyle?: string;
 }
 
-const formatPhoneNumber = (value: string): string => {
-  const cleaned = value.replace(/\D/g, ""); // Удаляем все нецифровые символы
-  let formatted = "+";
+const MainInput: FC<MainInputProps> = ({
+  label,
+  inputType = InputType.TEXT,
+  containerStyle,
+  onChangeText,
+  ...props
+}) => {
+  const [phone, setPhone] = useState<string | undefined>(undefined);
+  const [decimal, setDecimal] = useState("");
 
-  if (cleaned.length > 0) formatted += cleaned[0];
-  if (cleaned.length > 1) formatted += ` ${cleaned.slice(1, 4)}`;
-  if (cleaned.length > 4) formatted += `-${cleaned.slice(4, 7)}`;
-  if (cleaned.length > 7) formatted += `-${cleaned.slice(7, 9)}`;
-  if (cleaned.length > 9) formatted += `-${cleaned.slice(9, 11)}`;
-
-  return formatted;
-};
-
-const MainInput: FC<MainInputProps> = ({ label, inputType = InputType.TEXT, containerStyle, ...props }) => {
-  const [phone, setPhone] = useState("");
+  // При фокусе добавляем "+7" если поле пустое
+  const handlePhoneFocus = () => {
+    if (!phone || phone === "") {
+      setPhone("+7");
+      if (onChangeText) {
+        onChangeText("+7");
+      }
+    }
+  };
 
   const handlePhoneChange = (text: string) => {
-    setPhone(formatPhoneNumber(text)); // Форматируем ввод в номер телефона
+    const formatted = formatPhoneNumber(text);
+    setPhone(formatted);
+    if (onChangeText) {
+      onChangeText(formatted);
+    }
+  };
+
+  const handleDecimalChange = (text: string) => {
+    const cleaned = cleanDecimalInput(text);
+    setDecimal(cleaned);
+    if (onChangeText) {
+      onChangeText(cleaned);
+    }
+  };
+
+  const handleDecimalBlur = () => {
+    const finalValue = finalizeDecimal(decimal);
+    setDecimal(finalValue);
   };
 
   const keyboardType =
-    inputType === InputType.NUMERIC
+    inputType === InputType.NUMERIC || inputType === InputType.DECIMAL
       ? "numeric"
       : inputType === InputType.PHONE
-      ? "phone-pad"
-      : "default";
+        ? "phone-pad"
+        : "default";
 
   return (
     <View className={clsx("w-full", containerStyle)}>
@@ -42,9 +64,20 @@ const MainInput: FC<MainInputProps> = ({ label, inputType = InputType.TEXT, cont
       <TextInput
         className="w-full bg-white p-4 rounded-lg text-black text-lg font-mregular placeholder-gray-placeholder"
         keyboardType={keyboardType}
-        value={inputType === InputType.PHONE ? phone : props.value}
-        onChangeText={inputType === InputType.PHONE ? handlePhoneChange : props.onChangeText}
-        maxLength={16} // Ограничиваем длину номера
+        placeholder={inputType === InputType.PHONE ? "+7 ___-___-__-__" : props.placeholder}
+        value={
+          inputType === InputType.PHONE ? (phone === undefined ? "" : phone) :
+            inputType === InputType.DECIMAL ? decimal :
+              props.value
+        }
+        onFocus={inputType === InputType.PHONE ? handlePhoneFocus : props.onFocus}
+        onChangeText={
+          inputType === InputType.PHONE ? handlePhoneChange :
+            inputType === InputType.DECIMAL ? handleDecimalChange :
+              onChangeText
+        }
+        onBlur={inputType === InputType.DECIMAL ? handleDecimalBlur : props.onBlur}
+        maxLength={inputType === InputType.PHONE ? 16 : undefined}
         {...props}
       />
     </View>
