@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { View } from "react-native";
-import BalanceItem from "./BalanceItem";
+import BalanceItem from "./ui/BalanceItem";
 import icons from "@/constants/icons";
 
 interface BalanceBarProps {

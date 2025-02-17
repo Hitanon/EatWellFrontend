@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Text, Image, View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import MainButton from "@/components/MainButton";
-import MainInput from "@/components/MainInput";
+import MainButton from "@/components/ui/MainButton";
+import MainInput from "@/components/ui/MainInput";
 import { InputType } from "@/constants/types";
 import icons from "@/constants/icons";
 

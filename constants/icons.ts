@@ -23,6 +23,13 @@ const icons: { [key: string]: ImageSourcePropType } = {
   ticket: require("../assets/icons/ticket.png"),
   appleGolden: require("../assets/icons/apple-golden.png"),
   heart: require("../assets/icons/heart.png"),
+  // select date
+  arrowRight: require("../assets/icons/arrow-right.png"),
+  arrowLeft: require("../assets/icons/arrow-left.png"),
+  calendarFill: require("../assets/icons/calendar-fill.png"),
+  // calorie
+  calorieGray: require("../assets/icons/calorieGray.png"),
+
 };
 
 export default icons;

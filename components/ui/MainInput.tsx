@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 import clsx from "clsx";
-import { InputType } from "../constants/types"; // Импортируем enum
-import { formatPhoneNumber, cleanDecimalInput, finalizeDecimal } from "../utils/inputFormatters";
+import { InputType } from "../../constants/types"; // Импортируем enum
+import { formatPhoneNumber, cleanDecimalInput, finalizeDecimal } from "../../utils/inputFormatters";
 
 interface MainInputProps extends TextInputProps {
   label?: string;
