@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import clsx from "clsx";
 import icons from "@/constants/icons"; // Импортируем иконки
-import SelectModal from "@/components/SelectModal"; // Импортируем модалку
+import SelectModal from "@/components/modals/SelectModal"; // Импортируем модалку
 
 interface SelectOptionProps {
   label?: string;

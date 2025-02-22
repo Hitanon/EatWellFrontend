@@ -11,7 +11,7 @@ interface BalanceBarProps {
 
 const BalanceBar: FC<BalanceBarProps> = ({ tickets, apples, lives }) => {
   return (
-    <View className="w-full flex-row justify-between p-4">
+    <View className="w-full flex-row justify-between px-8 py-3">
       <BalanceItem icon={icons.ticket} text={tickets.toString()} />
       <BalanceItem icon={icons.appleGolden} text={apples.toString()} />
       <BalanceItem icon={icons.heart} text={lives.toString()} />

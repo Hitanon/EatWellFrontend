@@ -29,7 +29,16 @@ const icons: { [key: string]: ImageSourcePropType } = {
   calendarFill: require("../assets/icons/calendar-fill.png"),
   // calorie
   calorieGray: require("../assets/icons/calorieGray.png"),
-
+  calorieOrange: require("../assets/icons/calorieOrange.png"),
+  // button icons
+  plus: require("../assets/icons/plus.png"),
+  close: require("../assets/icons/closeIcon.png"),
+  edit: require("../assets/icons/editIcon.png"),
+  // water
+  waterIcon: require("../assets/icons/water-icon.png"),
+  // profile
+  avatar: require("../assets/icons/avatar.png"),
+  
 };
 
 export default icons;

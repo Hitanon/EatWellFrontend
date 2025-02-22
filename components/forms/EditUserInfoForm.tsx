@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
-import SelectOption from "./ui/SelectOption";
-import DatePicker from "./DatePicker";
-import MainInput from "./ui/MainInput";
+import SelectOption from "../ui/SelectOption";
+import DatePicker from "../date/DatePicker";
+import MainInput from "../ui/MainInput";
 import { InputType } from "@/constants/types";
 
 interface EditUserInfoFormProps {

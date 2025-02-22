@@ -12,6 +12,7 @@ module.exports = {
           placeholder: "#6E6E6E",
         },
         label: "#303030",
+        red: "#ED3C3C",
       },
       fontFamily: {
         mregular: ["MullerRegular", "sans-serif"],

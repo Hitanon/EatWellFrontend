@@ -2,7 +2,7 @@ import { Text, Image, View, TouchableOpacity, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import MainButton from "@/components/ui/MainButton";
-import EditUserInfoForm from "@/components/EditUserInfoForm";
+import EditUserInfoForm from "@/components/forms/EditUserInfoForm";
 import SecondaryButton from "@/components/ui/SecondaryButton";
 
 const RegisterDetails = () => {

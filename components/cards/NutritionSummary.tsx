@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { View } from "react-native";
-import CalorieProgress from "./CalorieProgress";
-import NutrientProgress from "./NutrientProgress";
+import CalorieProgress from "../CalorieProgress";
+import NutrientProgress from "../NutrientProgress";
 import clsx from "clsx";
 
 interface NutritionSummaryProps {
