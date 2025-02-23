@@ -4,19 +4,22 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { AuthProvider, useAuth } from "../context/AuthContext";
+import { MobXProvider } from "../context/MobXContext";
 import "../global.css";
 import LoadingScreen from "../components/LoadingScreen";
 
 const RootLayout = () => {
   return (
     <AuthProvider>
-      <MainNavigation />
+      <MobXProvider>
+        <MainNavigation />
+      </MobXProvider>
     </AuthProvider>
   );
 };
 
 const MainNavigation = () => {
-  const { isAuthenticated } = useAuth();
+  const { userStore } = useAuth();
   const colorScheme = useColorScheme();
 
   const [fontsLoaded] = useFonts({
@@ -26,7 +29,7 @@ const MainNavigation = () => {
     MullerRegular: require("../assets/fonts/MullerRegular.ttf"),
   });
 
-  if (!fontsLoaded || isAuthenticated === null) {
+  if (!fontsLoaded || userStore.isAuthenticated === null) {
     return <LoadingScreen />;
   }
 

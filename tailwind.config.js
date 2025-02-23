@@ -13,6 +13,8 @@ module.exports = {
         },
         label: "#303030",
         red: "#ED3C3C",
+        orange: "#E38D0C",
+        blue: "#1198D2",
       },
       fontFamily: {
         mregular: ["MullerRegular", "sans-serif"],

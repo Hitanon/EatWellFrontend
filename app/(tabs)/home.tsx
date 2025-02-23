@@ -1,36 +1,17 @@
 import { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { View, Text, ScrollView } from "react-native";
 import DateSelector from "@/components/date/DateSelector";
 import NutritionSummary from "@/components/cards/NutritionSummary";
 import WaterIntakeCard from "@/components/cards/WaterIntakeCard";
 import FoodItem from "@/components/food/FoodItem";
 import RoundButton from "@/components/ui/RoundButton";
+import { useStores } from "@/context/MobXContext";
 
-const HomeScreen = () => {
+const HomeScreen = observer(() => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const [nutritionData, setNutritionData] = useState({
-    currentCalories: 500,
-    targetCalories: 2200,
-    currentProteins: 32,
-    targetProteins: 97.5,
-    currentFats: 34,
-    targetFats: 52,
-    currentCarbs: 160,
-    targetCarbs: 426.8,
-  });
-
-  const [waterData, setWaterData] = useState({
-    percentage: 35,
-    currentValue: 0.3,
-    targetValue: 2.0,
-  });
-
-  const [foodList, setFoodList] = useState([
-    { id: 1, name: "Яблоко Голден", weight: 150, calories: 78 },
-    { id: 2, name: "Куриная грудка", weight: 200, calories: 165 },
-    { id: 3, name: "Овсянка с медом", weight: 100, calories: 350 },
-  ]);
+  const { dailyRationStore, nutritionStore, waterStore } = useStores();
 
   return (
     <View className="h-full">
@@ -38,30 +19,30 @@ const HomeScreen = () => {
         <DateSelector date={selectedDate} onSelect={setSelectedDate} />
 
         <NutritionSummary
-          currentCalories={nutritionData.currentCalories}
-          targetCalories={nutritionData.targetCalories}
-          currentProteins={nutritionData.currentProteins}
-          targetProteins={nutritionData.targetProteins}
-          currentFats={nutritionData.currentFats}
-          targetFats={nutritionData.targetFats}
-          currentCarbs={nutritionData.currentCarbs}
-          targetCarbs={nutritionData.targetCarbs}
+          currentCalories={nutritionStore.calories.current}
+          targetCalories={nutritionStore.calories.target}
+          currentProteins={nutritionStore.protein.current}
+          targetProteins={nutritionStore.protein.current}
+          currentFats={nutritionStore.fat.current}
+          targetFats={nutritionStore.fat.target}
+          currentCarbs={nutritionStore.fat.current}
+          targetCarbs={nutritionStore.protein.target}
           containerStyle="mt-6"
         />
 
         <Text className="text-xl text-center font-mmedium text-label mt-4 mb-3">Вода</Text>
 
         <WaterIntakeCard
-          percentage={waterData.percentage}
-          currentValue={waterData.currentValue}
-          targetValue={waterData.targetValue}
+          percentage={waterStore.percentage}
+          currentValue={waterStore.current}
+          targetValue={waterStore.target}
           showButton
           onPress={() => console.log("Добавить воду")}
         />
 
         <Text className="text-xl text-center font-mmedium text-label mt-4 mb-3">Дневной рацион</Text>
         <View className="mb-16">
-          {foodList.map((food) => (
+          {dailyRationStore.dailyMeals.map((food) => (
             <FoodItem
               key={food.id}
               name={food.name}
@@ -83,6 +64,6 @@ const HomeScreen = () => {
     </View>
 
   );
-};
+});
 
 export default HomeScreen;

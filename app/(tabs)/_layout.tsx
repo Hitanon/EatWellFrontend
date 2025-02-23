@@ -1,18 +1,22 @@
 import { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Tabs } from "expo-router";
 import { Image, View } from "react-native";
 import icons from "@/constants/icons"; // Импортируем иконки
 import BalanceBar from "@/components/BalanceBar";
+import { useStores } from "@/context/MobXContext";
 
-const TabLayout = () => {
-  const [tickets, setTickets] = useState(0);
-  const [apples, setApples] = useState(0);
-  const [lives, setLives] = useState(0);
+const TabLayout = observer(() => {
+  const { balanceStore } = useStores();
 
   return (
     <SafeAreaView className="flex-1">
-      <BalanceBar tickets={tickets} apples={apples} lives={lives} />
+      <BalanceBar
+        tickets={balanceStore.frozenTickets}
+        apples={balanceStore.goldenApples}
+        lives={balanceStore.healthyDays}
+      />
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -90,6 +94,6 @@ const TabLayout = () => {
       </Tabs>
     </SafeAreaView>
   );
-};
+});
 
 export default TabLayout;

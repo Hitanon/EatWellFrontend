@@ -34,6 +34,7 @@ const icons: { [key: string]: ImageSourcePropType } = {
   plus: require("../assets/icons/plus.png"),
   close: require("../assets/icons/closeIcon.png"),
   edit: require("../assets/icons/editIcon.png"),
+  editPhoto: require("../assets/icons/editPhoto.png"),
   // water
   waterIcon: require("../assets/icons/water-icon.png"),
   // profile

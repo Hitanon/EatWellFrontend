@@ -1,16 +1,16 @@
 import { makeAutoObservable } from "mobx";
 
 class BalanceStore {
-    frozenCoupons = 0;
-    goldenApples = 0;
-    healthyDays = 0;
+    frozenTickets = 2;
+    goldenApples = 100;
+    healthyDays = 1;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    setBalance(balance: { frozenCoupons: number; goldenApples: number; healthyDays: number }) {
-        this.frozenCoupons = balance.frozenCoupons;
+    setBalance(balance: { frozenTickets: number; goldenApples: number; healthyDays: number }) {
+        this.frozenTickets = balance.frozenTickets;
         this.goldenApples = balance.goldenApples;
         this.healthyDays = balance.healthyDays;
     }
