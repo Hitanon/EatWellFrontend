@@ -48,10 +48,12 @@ const HomeScreen = observer(() => {
               name={food.name}
               weight={food.weight}
               calories={food.calories}
-              editable={false}
+              isSelected={false}
+              isSelecting={false}
               onDelete={() => console.log(`Удалено ${food.name}`)}
               onPress={() => console.log(`Открыто ${food.name}`)}
               containerStyle="mb-3"
+              isInRation= {true}
             />
           ))}
         </View>
