@@ -35,6 +35,9 @@ const MealProductList: FC<MealProductListProps> = ({ products, onRemove, onAddPr
             calories={item.calories}
             onDelete={() => onRemove(item.id)}
             containerStyle="mb-3"
+            isInRation={true}
+            isSelected={false}
+            isSelecting={false}
           />
         ))}
 

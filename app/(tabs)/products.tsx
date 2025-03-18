@@ -7,10 +7,11 @@ import FoodItem from "@/components/food/FoodItem";
 import MainButton from "@/components/ui/MainButton";
 import { useStores } from "@/context/MobXContext";
 import SecondaryButton from "@/components/ui/SecondaryButton";
+import { TabType } from "@/constants/types";
 
 const ProductsScreen = observer(() => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"Блюда" | "Продукты">("Блюда");
+  const [activeTab, setActiveTab] = useState<TabType>(TabType.Meals);
   const { productsStore, mealsStore } = useStores();
 
   /** Режим множественного выбора */
@@ -19,7 +20,7 @@ const ProductsScreen = observer(() => {
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
 
   // Получаем список текущих элементов
-  const items = activeTab === "Блюда" ? mealsStore.meals : productsStore.products;
+  const items = activeTab === TabType.Meals ? mealsStore.meals : productsStore.products;
 
   // Долгое нажатие включает режим множественного выбора
   const handleLongPress = (id: string) => {
@@ -36,7 +37,7 @@ const ProductsScreen = observer(() => {
     if (isSelecting) {
       toggleSelection(id);
     } else {
-      router.push(activeTab === "Блюда" ? `/meal?id=${id}` : `/product?id=${id}`);
+      router.push(activeTab === TabType.Meals ? `/meal?id=${id}` : `/product?id=${id}`);
     }
   };
 
@@ -65,7 +66,7 @@ const ProductsScreen = observer(() => {
 
   // Удаление элемента
   const handleDelete = (id: string) => {
-    if (activeTab === "Блюда") {
+    if (activeTab === TabType.Meals) {
       mealsStore.meals = mealsStore.meals.filter((item) => item.id !== id);
     } else {
       productsStore.products = productsStore.products.filter((item) => item.id !== id);
@@ -74,11 +75,7 @@ const ProductsScreen = observer(() => {
 
   // Обработка добавления в рацион всех выбранных
   const handleAddSelectedItems = () => {
-    // Ваш код для добавления в рацион выбранных элементов
-    // Например, обращение к другим методам стора
     console.log("Добавить в рацион эти элементы:", Array.from(selectedItems));
-
-    // После чего сбрасываем выбор
     resetSelection();
   };
 
@@ -86,11 +83,9 @@ const ProductsScreen = observer(() => {
     <View className="flex-1 items-center justify-start px-7 py-3">
       {/* Переключатель вкладок */}
       <TabSwitcher
-        tabs={["Блюда", "Продукты"]}
-        onSelect={(tab) => setActiveTab(tab as "Блюда" | "Продукты")}
+        tabs={[TabType.Meals, TabType.Products]}
+        onSelect={(tab) => setActiveTab(tab as TabType)}
       />
-
-
 
       {/* Список продуктов / блюд */}
       <ScrollView className="flex-1 w-full mt-4" showsVerticalScrollIndicator={false}>
@@ -103,7 +98,7 @@ const ProductsScreen = observer(() => {
         {items.map((item) => (
           <FoodItem
             key={item.id}
-            image={item.image}               // При необходимости
+            image={item.image}
             name={item.name}
             weight={item.weight}
             calories={item.calories}
@@ -112,7 +107,7 @@ const ProductsScreen = observer(() => {
             onPress={() => handlePress(item.id)}
             onLongPress={() => handleLongPress(item.id)}
             onDelete={() => handleDelete(item.id)}
-            onAddToRation={() => { }}
+            onAddToRation={() => {}}
             containerStyle="mb-3"
           />
         ))}
@@ -123,27 +118,23 @@ const ProductsScreen = observer(() => {
         text={
           isSelecting
             ? "Добавить в рацион"
-            : activeTab === "Блюда"
-              ? "Создать новое блюдо"
-              : "Создать новый продукт"
+            : activeTab === TabType.Meals
+            ? "Создать новое блюдо"
+            : "Создать новый продукт"
         }
         onPress={
           isSelecting
             ? handleAddSelectedItems
-            : activeTab === "Блюда"
-              ? () => router.push("/meal")
-              : () => router.push("/product")
+            : activeTab === TabType.Meals
+            ? () => router.push("/meal")
+            : () => router.push("/product")
         }
         containerStyle="mt-4 mb-2"
       />
 
       {/* Кнопка "Отмена" при множественном выборе */}
       {isSelecting && (
-        <SecondaryButton
-          text="Отмена"
-          onPress={resetSelection}
-          containerStyle="mb-4"
-        />
+        <SecondaryButton text="Отмена" onPress={resetSelection} containerStyle="mb-4" />
       )}
     </View>
   );

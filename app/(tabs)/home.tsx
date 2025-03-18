@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
+import { useRouter } from "expo-router";
 import { View, Text, ScrollView } from "react-native";
 import DateSelector from "@/components/date/DateSelector";
 import NutritionSummary from "@/components/cards/NutritionSummary";
@@ -9,9 +10,15 @@ import RoundButton from "@/components/ui/RoundButton";
 import { useStores } from "@/context/MobXContext";
 
 const HomeScreen = observer(() => {
+
+  const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const { dailyRationStore, nutritionStore, waterStore } = useStores();
+
+  const handlePressAddProduct = () => {
+    router.push('/create-product');
+  };
 
   return (
     <View className="h-full">
@@ -61,7 +68,7 @@ const HomeScreen = observer(() => {
       </ScrollView>
       {/* Кнопка в правом нижнем углу */}
       <View className="absolute bottom-6 right-10 shadow-xl">
-        <RoundButton size={60} iconSize={20} onPress={() => console.log("Добавить продукт")} />
+        <RoundButton size={60} iconSize={20} onPress={handlePressAddProduct} />
       </View>
     </View>
 
