@@ -27,22 +27,28 @@ const Camera: FC<CameraProps> = ({ isScanner = false, onBarcodeScanned, onPhotoT
   }, []);
 
   const handleBarcodeScanned = ({ data, bounds }: { data: string; bounds: BarcodeBounds }) => {
-    if (!scanned && isScanner && onBarcodeScanned) {
-      const scanAreaX = (width - SCAN_AREA_WIDTH) / 2;
-      const scanAreaY = (height * 0.65 - SCAN_AREA_HEIGHT) / 2;
-      
-      const isInside =
-        bounds.origin.x >= scanAreaX &&
-        bounds.origin.y >= scanAreaY &&
-        bounds.origin.x + bounds.size.width <= scanAreaX + SCAN_AREA_WIDTH &&
-        bounds.origin.y + bounds.size.height <= scanAreaY + SCAN_AREA_HEIGHT;
+    // if (!scanned && isScanner && onBarcodeScanned) {
+    //   const scanAreaX = (width - SCAN_AREA_WIDTH) / 2;
+    //   const scanAreaY = (height * 0.65 - SCAN_AREA_HEIGHT) / 2;
 
-      if (isInside) {
-        setScanned(true);
-        console.log("Штрихкод:", data);
-        onBarcodeScanned(data);
-        setTimeout(() => setScanned(false), 2000);
-      }
+    //   const isInside =
+    //     bounds.origin.x >= scanAreaX &&
+    //     bounds.origin.y >= scanAreaY &&
+    //     bounds.origin.x + bounds.size.width <= scanAreaX + SCAN_AREA_WIDTH &&
+    //     bounds.origin.y + bounds.size.height <= scanAreaY + SCAN_AREA_HEIGHT;
+
+    //   if (isInside) {
+    //     setScanned(true);
+    //     console.log("Штрихкод:", data);
+    //     onBarcodeScanned(data);
+    //     setTimeout(() => setScanned(false), 2000);
+    //   }
+    // }
+    if (!scanned && isScanner && onBarcodeScanned) {
+      setScanned(true);
+      console.log("Штрихкод:", data);
+      onBarcodeScanned(data);
+      setTimeout(() => setScanned(false), 2000);
     }
   };
 

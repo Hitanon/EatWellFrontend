@@ -38,6 +38,11 @@ const icons: { [key: string]: ImageSourcePropType } = {
   check: require("../assets/icons/check.png"),
   // water
   waterIcon: require("../assets/icons/water-icon.png"),
+  water150: require("../assets/icons/water-150.png"),
+  water200: require("../assets/icons/water-200.png"),
+  water300: require("../assets/icons/water-300.png"),
+  water500: require("../assets/icons/water-500.png"),
+  water1000: require("../assets/icons/water-1000.png"),
   // profile
   avatar: require("../assets/icons/avatar.png"),
   

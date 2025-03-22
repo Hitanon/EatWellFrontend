@@ -1,6 +1,5 @@
-import { Text, TouchableOpacity, GestureResponderEvent } from "react-native";
+import { Text, TouchableOpacity, GestureResponderEvent, View, Image, ImageSourcePropType } from "react-native";
 import { FC } from "react";
-// import { ViewStyle, TextStyle } from "react-native";
 import clsx from "clsx";
 
 interface SecondaryButtonProps {
@@ -8,18 +7,28 @@ interface SecondaryButtonProps {
     onPress: (event: GestureResponderEvent) => void;
     containerStyle?: string;
     textStyle?: string;
+    icon?: ImageSourcePropType; // Опциональная иконка
+    iconSize?: number; // Размер иконки
 }
 
-const SecondaryButton: FC<SecondaryButtonProps> = ({ text, onPress, containerStyle, textStyle }) => {
+const SecondaryButton: FC<SecondaryButtonProps> = ({ text, onPress, containerStyle, textStyle, icon, iconSize = 20 }) => {
     return (
         <TouchableOpacity
             activeOpacity={0.7}
             onPress={onPress}
             className={clsx(
-                "w-full p-5 rounded-2xl items-center justify-center border-2 border-primary",
+                "w-full p-5 rounded-2xl flex-row items-center justify-center border-2 border-primary",
                 containerStyle
             )}
         >
+            {/* Если передана иконка, то отображаем */}
+            {icon && (
+                <Image
+                    source={icon}
+                    style={{ width: iconSize, height: iconSize, marginRight: 8 }}
+                    resizeMode="contain"
+                />
+            )}
             <Text className={clsx("text-label text-xl font-mbold", textStyle)}>
                 {text}
             </Text>

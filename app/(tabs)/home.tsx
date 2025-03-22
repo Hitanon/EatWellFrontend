@@ -20,6 +20,10 @@ const HomeScreen = observer(() => {
     router.push('/create-product');
   };
 
+  const handlePressAddWatter = () => {
+    router.push('/add-water');
+  }
+
   return (
     <View className="h-full">
       <ScrollView className="flex-1 px-7 py-3" showsVerticalScrollIndicator={false}>
@@ -44,7 +48,7 @@ const HomeScreen = observer(() => {
           currentValue={waterStore.current}
           targetValue={waterStore.target}
           showButton
-          onPress={() => console.log("Добавить воду")}
+          onPress={handlePressAddWatter}
         />
 
         <Text className="text-xl text-center font-mmedium text-label mt-4 mb-3">Дневной рацион</Text>
